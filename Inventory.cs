@@ -6,8 +6,3 @@ public class Product
     public int ProductTypeId { get; set; }
 }
 
-public class ProductType
-{
-    public int ID { get; set; }
-    public string Category { get; set; }
-}

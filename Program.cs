@@ -1,4 +1,5 @@
-﻿string greeting = @"Welcome to the Reductio & Absurdum Emporium. 
+﻿Console.Clear();
+string greeting = @"Welcome to the Reductio & Absurdum Emporium!
 All your magic needs met in one place!";
 List<Product> inventory = new List<Product>
 {
@@ -79,39 +80,103 @@ new Product()
     Sold = false,
     ProductTypeId = 2
 }
-},
+};
 
 List<ProductType> types = new List<ProductType>
 {
 new ProductType()
 {
     ID = 1,
-    Category = "Apparel"
+    Type = "Apparel"
 },
 new ProductType()
 {
     ID = 2,
-    Category = "Potion"
+    Type = "Potion"
 },
 new ProductType()
 {
     ID = 3,
-    Category = "Enchanted Object"
+    Type = "Enchanted Object"
 },
 new ProductType()
 {
     ID = 4,
-    Category = "Wand"
+    Type = "Wand"
 }
 };
 
+string choice = null;
+Console.WriteLine(greeting);
 
-void ListCategories()
+while (choice != "0")
 {
 
+    Console.WriteLine(@"What would you like to do?
+0. Exit
+1. Browse All Goods
+2. Search by Type");
+    choice = Console.ReadLine().Trim();
+
+    if (choice == "0")
+    {
+        Console.WriteLine("Have a magical day!");
+    }
+    else if (choice == "1")
+    {
+        ListProducts();
+    }
+    else if (choice == "2")
+    {
+        InventorySearch();
+    }
+}
+
+
+void ListProductTypes()
+{
+    foreach (ProductType type in types)
+    {
+        Console.WriteLine($"{type.ID}. {type.Type}");
+    }
 }
 
 void ListProducts()
 {
+    foreach (Product product in inventory)
+    {
+        Console.WriteLine($"{product.Name} costs {product.Price}.\n");
+    }
+}
 
+void InventorySearch()
+{
+    int requestedType = 0;
+    while (requestedType == 0)
+    {
+        try
+        {
+            Console.WriteLine("What type of item can we find for you today?\n");
+            ListProductTypes();
+            requestedType = int.Parse(Console.ReadLine());
+            if (requestedType >= 1 && requestedType <= 4)
+            {
+                List<Product> requestedProducts = inventory.Where(product => product.ProductTypeId == requestedType).ToList();
+                Console.WriteLine(@$"Here are all products that fit your requested type:");
+                foreach (Product product in requestedProducts)
+                {
+                    Console.WriteLine(@$"{product.Name}.
+                This item costs {product.Price}.");
+                }
+            }
+
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Beloved patron, that was not a number. Please select the appropriate number option.");
+        }
+
+
+
+    }
 }
