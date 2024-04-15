@@ -1,6 +1,7 @@
 ﻿Console.Clear();
 string greeting = @"Welcome to the Reductio & Absurdum Emporium!
 All your magic needs met in one place!";
+
 List<Product> inventory = new List<Product>
 {
 new Product()
@@ -8,77 +9,88 @@ new Product()
     Name = "Defensive Greataxe",
     Price = 710.73M,
     Sold = true,
-    ProductTypeId = 3
+    ProductTypeId = 3,
+    DateStocked = new DateTime(2023, 8, 15)
 },
 new Product()
 {
     Name = "Potion of Climbing",
     Price = 845.95M,
     Sold = false,
-    ProductTypeId = 2
+    ProductTypeId = 2,
+    DateStocked = new DateTime(2022,6, 4)
 },
 new Product()
 {
     Name = "Wand of Animal Messenger",
     Price = 682.93M,
     Sold = false,
-    ProductTypeId = 4
+    ProductTypeId = 4,
+    DateStocked = new DateTime(2022, 6, 21)
 },
 new Product()
 {
     Name = "Potion of Stone Giant Strength",
     Price = 517.12M,
     Sold = false,
-    ProductTypeId = 2
+    ProductTypeId = 2,
+    DateStocked = new DateTime(2022, 8, 13)
 },
 new Product()
 {
     Name = "Wand of Conjure Fey",
     Price = 75.73M,
     Sold = false,
-    ProductTypeId = 4
+    ProductTypeId = 4,
+    DateStocked = new DateTime(2023, 12, 18)
 },
 new Product()
 {
     Name = "Universal Solvent",
     Price = 211.21M,
     Sold = true,
-    ProductTypeId = 2
+    ProductTypeId = 2,
+    DateStocked = new DateTime(2023, 4, 26)
 },
 new Product()
 {
     Name = "Adamantine Scale Mail Armour",
     Price = 1272.22M,
     Sold = false,
-    ProductTypeId = 1
+    ProductTypeId = 1,
+    DateStocked = new DateTime(2023, 6, 19)
 },
 new Product()
 {
     Name = "Amulet of Health",
     Price = 613.05M,
     Sold = false,
-    ProductTypeId = 1
+    ProductTypeId = 1,
+    DateStocked = new DateTime(2024, 1, 9)
 },
 new Product()
 {
     Name = "Figurine of Wondrous Power, Obsidian Steed",
     Price = 691.04M,
     Sold = false,
-    ProductTypeId = 3
+    ProductTypeId = 3,
+    DateStocked = new DateTime(2023, 5, 9)
 },
 new Product()
 {
     Name = "Ring of Earth Elemental Command",
     Price = 202.30M,
     Sold = false,
-    ProductTypeId = 1
+    ProductTypeId = 1,
+    DateStocked = new DateTime(2024, 1, 29)
 },
 new Product()
 {
     Name = "Potion of Doxylamine",
     Price = 433.16M,
     Sold = false,
-    ProductTypeId = 2
+    ProductTypeId = 2,
+    DateStocked = new DateTime(2024, 3, 24)
 }
 };
 
@@ -145,7 +157,8 @@ void ListProducts()
 {
     foreach (Product product in inventory)
     {
-        Console.WriteLine($"{product.Name} costs {product.Price}.\n");
+        Console.WriteLine(@$"{product.Name} costs {product.Price}.
+        This item has has been available for {product.DaysOnShelf} days.");
     }
 }
 
@@ -175,8 +188,5 @@ void InventorySearch()
         {
             Console.WriteLine("Beloved patron, that was not a number. Please select the appropriate number option.");
         }
-
-
-
     }
 }
