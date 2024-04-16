@@ -126,8 +126,9 @@ while (choice != "0")
 
     Console.WriteLine(@"What would you like to do?
 0. Exit
-1. Browse All Available Goods
-2. Search by Type");
+1. Browse All Available Inventory
+2. Search by Type
+3. Add New Item");
     choice = Console.ReadLine().Trim();
 
     if (choice == "0")
@@ -141,6 +142,10 @@ while (choice != "0")
     else if (choice == "2")
     {
         InventorySearch();
+    }
+    else if (choice == "3")
+    {
+        AddNewItem();
     }
 }
 
@@ -161,7 +166,7 @@ void ListAvailableProducts()
     {
         Console.WriteLine(@$"{item.Name}
     This {item.Name} costs {item.Price}.
-    It has been on the shelves for {item.DaysOnShelf}.
+    It has been on the shelves for {item.DaysOnShelf} days.
     ");
     }
 }
@@ -193,4 +198,102 @@ void InventorySearch()
             Console.WriteLine("Beloved patron, that was not a number. Please select the appropriate number option.");
         }
     }
+}
+
+void AddNewItem()
+{
+    Console.WriteLine(@"Whipped up something new in the lab or cauldron? 
+Fill out the following information and we'll get it added to the shelves!");
+    string name = null;
+    decimal price = 0M;
+    int productTypeId = 0;
+    int year = 0;
+    int month = 0;
+    int day = 0;
+
+    while (name == null)
+    {
+        try
+        {
+            Console.WriteLine("What is the name of the item?");
+            name = Console.ReadLine();
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("That is not a name in any recognized language, and we speak all 700. Try again.");
+        }
+    }
+    while (price == 0M)
+    {
+        try
+        {
+            Console.Write("Price: ");
+            price = decimal.Parse(Console.ReadLine());
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("That was not a value for any known monetary amount. Please try again.");
+        }
+    }
+    while (productTypeId == 0)
+    {
+        try
+        {
+            Console.Write("Please select a type from the following list:\n");
+            ListProductTypes();
+            productTypeId = int.Parse(Console.ReadLine().Trim());
+
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("That was not an option. Try again.");
+        }
+    }
+    while (year == 0)
+    {
+        try
+        {
+            Console.Write("Year: ");
+            year = int.Parse(Console.ReadLine().Trim());
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Not a valid year. Try again.");
+        }
+    }
+    while (month == 0)
+    {
+        try
+        {
+            Console.Write("Month: ");
+            month = int.Parse(Console.ReadLine().Trim());
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Not a valid month. Please try again.");
+        }
+    }
+    while (day == 0)
+    {
+        try
+        {
+            Console.Write("Day:");
+            day = int.Parse(Console.ReadLine().Trim());
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Not a valid day. Please try again.");
+        }
+    }
+    DateTime dateStocked = new DateTime(year, month, day);
+    inventory.Add(new Product()
+    {
+        Name = name,
+        Price = price,
+        Sold = false,
+        ProductTypeId = productTypeId,
+        DateStocked = dateStocked
+    }
+    );
+
 }
