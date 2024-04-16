@@ -126,7 +126,7 @@ while (choice != "0")
 
     Console.WriteLine(@"What would you like to do?
 0. Exit
-1. Browse All Goods
+1. Browse All Available Goods
 2. Search by Type");
     choice = Console.ReadLine().Trim();
 
@@ -136,7 +136,7 @@ while (choice != "0")
     }
     else if (choice == "1")
     {
-        ListProducts();
+        ListAvailableProducts();
     }
     else if (choice == "2")
     {
@@ -147,18 +147,22 @@ while (choice != "0")
 
 void ListProductTypes()
 {
+
     foreach (ProductType type in types)
     {
         Console.WriteLine($"{type.ID}. {type.Type}");
     }
 }
 
-void ListProducts()
+void ListAvailableProducts()
 {
-    foreach (Product product in inventory)
+    List<Product> availableItems = inventory.Where(item => !item.Sold).ToList();
+    foreach (Product item in availableItems)
     {
-        Console.WriteLine(@$"{product.Name} costs {product.Price}.
-        This item has has been available for {product.DaysOnShelf} days.");
+        Console.WriteLine(@$"{item.Name}
+    This {item.Name} costs {item.Price}.
+    It has been on the shelves for {item.DaysOnShelf}.
+    ");
     }
 }
 
